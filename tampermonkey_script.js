@@ -14,19 +14,19 @@
     // --- Configuration ---
     // Define your hotkeys and their corresponding actions here.
     const hotkeys = {
-        'Ctrl+Shift+A': () => {
+        'Control+Shift+A': () => {
             console.log('Ctrl+Shift+A pressed - Archiving oldest conversation!');
             archiveOldestConversation();
         },
-        'Ctrl+Shift+F': () => {
+        'Control+Shift+F': () => {
             console.log('Ctrl+Shift+F pressed - Pasting follow-up message!');
             pasteMessage("Hi $contact, did you get my last message? I look forward to speaking with you!\n\nYou can read the Bible for free here: https://www.biblegateway.com/passage/?search=John%201&version=NIV");
         },
-        'Ctrl+Shift+G': () => {
+        'Control+Shift+G': () => {
             console.log('Ctrl+Shift+G pressed - Pasting gospel message!');
             pasteMessage("Hi $contact, I'm Austin. God created us people in His image and blessed us and gave us dominion over everything in the earth. Why? I believe He did so because He is love and He wants to share His love with us. But then Adam, the first man, sinned and disobeyed God and broke the wonderful relationship he and all people to come had with God, for we all sinned. \"But your iniquities have separated you from your God; and your sins have hidden His face from you, so that He will not hear\" (Isaiah 59:2).God sent His One and only Son Jesus Christ to earth to die for our sins. After 3 days, Jesus rose from the dead. I want to help you know God. $contact, God loves you. \"For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life\" (John 3:16). When I first experienced God, I first asked Jesus Christ to forgive me my sins and come into my life. I encourage you to read the Gospel of John in the Bible. John was Jesus' closest disciple when Jesus Christ the Son of God was ministering on earth. You can download a Bible onto your phone at bible.com/app. Who is Jesus Christ to you, $contact? Please let me hear from you. I look forward to reading your words.");
         },
-        'Ctrl+Shift+N': () => {
+        'Control+Shift+N': () => {
             console.log('Ctrl+Shift+N pressed - Clicking Add button!');
             const addButton = document.querySelector('ion-fab-button ion-icon[name="add"]');
             if (addButton) {
@@ -35,7 +35,7 @@
                 console.warn('Add button (ion-fab-button with ion-icon name="add") not found.');
             }
         },
-        'Ctrl+Shift+O': () => {
+        'Control+Shift+O': () => {
             console.log('Ctrl+Shift+O pressed - Clicking bottom contact!');
             clickBottomContact();
         },
