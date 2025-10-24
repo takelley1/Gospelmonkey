@@ -24,7 +24,7 @@ This allows navigating PATH mostly using only the keyboard.
 2.  **Create a New Script**:
     *   Click on the Tampermonkey icon in your browser's toolbar.
     *   Select "Create a new script..."
-3.  **Copy the Script**: Delete any existing code in the new script editor. Then, copy the entire content of the `Gospelmonkey.user.js` file and paste it into the Tampermonkey editor.
+3.  **Copy the Script**: Delete any existing code in the new script editor. Then, copy the entire content of the `gospelmonkey.js` file and paste it into the Tampermonkey editor.
 4.  **Save the Script**: Click on "File" -> "Save".
 
 ## Usage
