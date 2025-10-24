@@ -27,13 +27,7 @@
             pasteMessage("Hi $contact, I'm Austin. God created us people in His image and blessed us and gave us dominion over everything in the earth. Why? I believe He did so because He is love and He wants to share His love with us. But then Adam, the first man, sinned and disobeyed God and broke the wonderful relationship he and all people to come had with God, for we all sinned. \"But your iniquities have separated you from your God; and your sins have hidden His face from you, so that He will not hear\" (Isaiah 59:2).God sent His One and only Son Jesus Christ to earth to die for our sins. After 3 days, Jesus rose from the dead. I want to help you know God. $contact, God loves you. \"For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life\" (John 3:16). When I first experienced God, I first asked Jesus Christ to forgive me my sins and come into my life. I encourage you to read the Gospel of John in the Bible. John was Jesus' closest disciple when Jesus Christ the Son of God was ministering on earth. You can download a Bible onto your phone at bible.com/app. Who is Jesus Christ to you, $contact? Please let me hear from you. I look forward to reading your words.");
         },
         'Control+Shift+N': () => {
-            console.log('Ctrl+Shift+N pressed - Clicking Add button!');
-            const addButton = document.querySelector('ion-fab-button ion-icon[name="add"]');
-            if (addButton) {
-                addButton.click();
-            } else {
-                console.warn('Add button (ion-fab-button with ion-icon name="add") not found.');
-            }
+            addContactAndOpen();
         },
         'Control+Shift+O': () => {
             console.log('Ctrl+Shift+O pressed - Clicking bottom contact!');
@@ -147,6 +141,54 @@
         } else {
             console.warn('No contact list items found to click.');
         }
+    }
+
+    /**
+     * Adds a new contact and clicks on it once it appears in the list.
+     */
+    async function addContactAndOpen() {
+        console.log('Adding new contact and opening it.');
+
+        const contactList = document.querySelector('app-tab-seekers ion-list');
+        if (!contactList) {
+            console.warn('Contact list (app-tab-seekers ion-list) not found.');
+            return;
+        }
+
+        const initialContactCount = contactList.querySelectorAll('ion-item-sliding').length;
+
+        const addButton = document.querySelector('ion-fab-button');
+        if (addButton) {
+            addButton.click();
+        } else {
+            console.warn('Add button (ion-fab-button) not found.');
+            return;
+        }
+
+        const observer = new MutationObserver((mutationsList, observer) => {
+            for(let mutation of mutationsList) {
+                if (mutation.type === 'childList') {
+                    const newContactCount = contactList.querySelectorAll('ion-item-sliding').length;
+                    if (newContactCount > initialContactCount) {
+                        console.log('New contact added. Clicking it.');
+                        const firstContact = contactList.querySelector('ion-item-sliding ion-item');
+                        if (firstContact) {
+                            firstContact.click();
+                        }
+                        observer.disconnect();
+                        return;
+                    }
+                }
+            }
+        });
+
+        observer.observe(contactList, { childList: true, subtree: true });
+
+        // Timeout to prevent observer from running indefinitely
+        setTimeout(() => {
+            observer.disconnect();
+            console.warn('Observer timed out. New contact was not detected.');
+        }, 10000); // 10 seconds timeout
     }
 
     /**
