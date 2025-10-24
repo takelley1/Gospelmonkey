@@ -121,7 +121,7 @@
             previousScrollHeight = currentScrollHeight;
             scrollableContent.scrollTop = currentScrollHeight;
             console.log('Scrolling to bottom to load more contacts...');
-            await new Promise(resolve => setTimeout(resolve, 500)); // Wait for content to load
+            await new window.Promise(resolve => window.setTimeout(resolve, 500)); // Wait for content to load
             currentScrollHeight = scrollableContent.scrollHeight;
         }
         console.log('Finished scrolling. All contacts should be loaded.');
@@ -165,15 +165,21 @@
             return;
         }
 
-        const observer = new MutationObserver((mutationsList, observer) => {
+        const observer = new window.MutationObserver((mutationsList, observer) => {
             for(let mutation of mutationsList) {
                 if (mutation.type === 'childList') {
                     const newContactCount = contactList.querySelectorAll('ion-item-sliding').length;
                     if (newContactCount > initialContactCount) {
                         console.log('New contact added. Clicking it.');
-                        const firstContact = contactList.querySelector('ion-item-sliding ion-item');
-                        if (firstContact) {
-                            firstContact.click();
+                        const firstContactSlidingItem = contactList.querySelector('ion-item-sliding');
+                        if (firstContactSlidingItem) {
+                            const contactNameHeading = firstContactSlidingItem.querySelector('ion-item ion-label h2');
+                            if (contactNameHeading) {
+                                contactNameHeading.click();
+                                console.log('Clicked the h2 element (contact name) of the new contact.');
+                            } else {
+                                console.warn('Contact name heading (h2) not found within the new contact.');
+                            }
                         }
                         observer.disconnect();
                         return;
@@ -185,7 +191,7 @@
         observer.observe(contactList, { childList: true, subtree: true });
 
         // Timeout to prevent observer from running indefinitely
-        setTimeout(() => {
+        window.setTimeout(() => {
             observer.disconnect();
             console.warn('Observer timed out. New contact was not detected.');
         }, 10000); // 10 seconds timeout
@@ -199,7 +205,7 @@
         if (sendButton) {
             sendButton.click();
             console.log('Send button clicked. Waiting 2 seconds before going back...');
-            await new Promise(resolve => setTimeout(resolve, 2000)); // Wait for 2 seconds
+            await new window.Promise(resolve => window.setTimeout(resolve, 2000)); // Wait for 2 seconds
             window.history.back();
             console.log('Navigated back in browser history.');
         } else {
