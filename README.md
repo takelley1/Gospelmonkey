@@ -1,6 +1,7 @@
-# Tampermonkey Script for Global Media Outreach
+# Gospelmonkey
 
-This Tampermonkey script enhances your workflow in the path.globalmediaoutreach.com web application by providing hotkeys for common actions and personalized message pasting.
+Gospelmonkey is a Tampermonkey script that enhances your workflow in the path.globalmediaoutreach.com web application.
+It provides hotkeys for common actions and quick access to templates.
 This allows navigating PATH mostly using only the keyboard.
 
 ## Features
