@@ -10,8 +10,8 @@ This allows navigating PATH mostly using only the keyboard.
 *   **`Control + Shift + G`**: Pastes a personalized gospel message into the conversation's message box. The message includes the contact's first name.
 *   **`Control + Shift + N`**: Clicks the "Add" button (used for adding new contacts or opening options).
 *   **`Control + Shift + O`**: Clicks the bottom-most contact in the list, ensuring all contacts are loaded by scrolling to the bottom of the page first.
-*   **`Control + Shift + Enter`**: Clicks the send message button, waits for 2 seconds, then navigates back in browser history.
-*   **`Control + Shift + Backspace`**: Performs the browser's "back" function.
+*   **`Shift + Enter`**: Clicks the send message button, waits for 2 seconds, then navigates back in browser history.
+*   **`Shift + Backspace`**: Performs the browser's "back" function.
 
 ## Prerequisites
 
@@ -36,5 +36,5 @@ This allows navigating PATH mostly using only the keyboard.
     *   Press `Control + Shift + G` to paste the gospel message.
     *   Press `Control + Shift + N` to click the "Add" button.
     *   Press `Control + Shift + O` to click the bottom-most contact.
-    *   Press `Control + Shift + Enter` to send the message and go back.
-    *   Press `Control + Shift + Backspace` to go back in your browser history.
+    *   Press `Shift + Enter` to send the message and go back.
+    *   Press `Shift + Backspace` to go back in your browser history.
