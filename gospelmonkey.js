@@ -12,6 +12,34 @@
     'use strict';
 
     // --- Configuration ---
+    const CONFIG = {
+        selectors: {
+            toastContainer: '.toast-container',
+            toastButton: 'button.toast-button',
+            textArea: '#text-area',
+            subjectInput: '.subjectInput',
+            contactTitle: 'app-seeker-request ion-toolbar ion-title',
+            conversationList: 'ion-list ion-item-sliding',
+            archiveButton: 'ion-item-option:has(ion-icon[name="archive"])',
+            scrollableContent: 'ion-content[role="main"]',
+            contactNameHeading: 'ion-item ion-label h2',
+            addContactButton: 'ion-fab-button',
+            contactListContainer: 'app-tab-seekers ion-list',
+            sendButton: 'ion-button:has(ion-icon[name="send"])',
+        },
+        timeouts: {
+            toast: 500,
+            scroll: 500,
+            send: 2000,
+            observer: 10000,
+        },
+        messages: {
+            followUp: "Hi $contact, did you get my last message? I look forward to speaking with you!\n\nYou can read the Bible for free here: https://www.biblegateway.com/passage/?search=John%201&version=NIV\nYou can also install the Bible app for free at https://bible.com/app",
+            gospel: "Hi $contact, I'm Austin. God created us people in His image and blessed us and gave us dominion over everything in the earth. Why? I believe He did so because He is love and He wants to share His love with us. But then Adam, the first man, sinned and disobeyed God and broke the wonderful relationship he and all people to come had with God, for we all sinned. \"But your iniquities have separated you from your God; and your sins have hidden His face from you, so that He will not hear\" (Isaiah 59:2).God sent His One and only Son Jesus Christ to earth to die for our sins. After 3 days, Jesus rose from the dead. I want to help you know God. $contact, God loves you. \"For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life\" (John 3:16). When I first experienced God, I first asked Jesus Christ to forgive me my sins and come into my life. I encourage you to read the Gospel of John in the Bible. John was Jesus' closest disciple when Jesus Christ the Son of God was ministering on earth. You can download a Bible onto your phone at bible.com/app. Who is Jesus Christ to you, $contact? Please let me hear from you. I look forward to reading your words.",
+            muslim: "Hello $contact, My name is Austin. Thank you for contacting us. Your relationship with God is the most important thing in your life. Please remember that you are a human trying to understand God. Only God can reveal Himself to you. You can ask God to show you who He really is and how to have a relationship with Him. God loves you and wants you to know Him. Talk to Him directly and ask for His help. Jesus Christ (Isa) paid for our sins. 'He was delivered over to death for our sins and was raised to life for our justification' (Romans 4:25).\n\nhttps://whoisjesus-really.com explains the life of Jesus, the miracles He performed, what others said about Him, how He has influenced the world and what all this means to you, https://jesusfactorfiction.com is a series of excellent multi-media presentations exploring the life and claims of Jesus. These are just two of Christ's claims. 'Truly, truly I say to you, the one hearing my word and believing the One having sent me has eternal life and comes not into judgment but has passed over out of death into life....I am the way and the truth and the life; no one comes to the Father except through me' (John 5:24 and 14:6). The Bible is the best book I recommend to discover Jesus' story. I encourage you to begin reading the Gospel of John in the New Testament. If you don’t have a Bible, you can get one free for your phone at https://bible.com/app What questions are you struggling with these days, $contact? Austin",
+        }
+    };
+
     // Define your hotkeys and their corresponding actions here.
     const hotkeys = {
         'Control+Shift+A': () => {
@@ -20,14 +48,15 @@
         },
         'Control+Shift+F': () => {
             console.log('Ctrl+Shift+F pressed - Pasting follow-up message!');
-            pasteMessage("Hi $contact, did you get my last message? I look forward to speaking with you!\n\nYou can read the Bible for free here: https://www.biblegateway.com/passage/?search=John%201&version=NIV\nYou can also install the Bible app for free at https://bible.com/app");
+            pasteMessage(CONFIG.messages.followUp);
         },
         'Control+Shift+G': () => {
             console.log('Ctrl+Shift+G pressed - Pasting gospel message!');
-            pasteMessage("Hi $contact, I'm Austin. God created us people in His image and blessed us and gave us dominion over everything in the earth. Why? I believe He did so because He is love and He wants to share His love with us. But then Adam, the first man, sinned and disobeyed God and broke the wonderful relationship he and all people to come had with God, for we all sinned. \"But your iniquities have separated you from your God; and your sins have hidden His face from you, so that He will not hear\" (Isaiah 59:2).God sent His One and only Son Jesus Christ to earth to die for our sins. After 3 days, Jesus rose from the dead. I want to help you know God. $contact, God loves you. \"For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life\" (John 3:16). When I first experienced God, I first asked Jesus Christ to forgive me my sins and come into my life. I encourage you to read the Gospel of John in the Bible. John was Jesus' closest disciple when Jesus Christ the Son of God was ministering on earth. You can download a Bible onto your phone at bible.com/app. Who is Jesus Christ to you, $contact? Please let me hear from you. I look forward to reading your words.");
+            pasteMessage(CONFIG.messages.gospel);
+        },
         'Control+Shift+M': () => {
             console.log('Ctrl+Shift+M pressed - Pasting message for Muslims!');
-            pasteMessage("Hello $contact, My name is Austin. Thank you for contacting us. Your relationship with God is the most important thing in your life. Please remember that you are a human trying to understand God. Only God can reveal Himself to you. You can ask God to show you who He really is and how to have a relationship with Him. God loves you and wants you to know Him. Talk to Him directly and ask for His help. Jesus Christ (Isa) paid for our sins. 'He was delivered over to death for our sins and was raised to life for our justification' (Romans 4:25).\n\nhttps://whoisjesus-really.com explains the life of Jesus, the miracles He performed, what others said about Him, how He has influenced the world and what all this means to you, https://jesusfactorfiction.com is a series of excellent multi-media presentations exploring the life and claims of Jesus. These are just two of Christ's claims. 'Truly, truly I say to you, the one hearing my word and believing the One having sent me has eternal life and comes not into judgment but has passed over out of death into life....I am the way and the truth and the life; no one comes to the Father except through me' (John 5:24 and 14:6). The Bible is the best book I recommend to discover Jesus' story. I encourage you to begin reading the Gospel of John in the New Testament. If you don’t have a Bible, you can get one free for your phone at https://bible.com/app What questions are you struggling with these days, $contact? Austin")
+            pasteMessage(CONFIG.messages.muslim);
         },
         'Control+Shift+N': () => {
             addContactAndOpen();
@@ -55,15 +84,24 @@
     function dismissToast() {
         // Wait a bit for the toast to appear
         setTimeout(() => {
-            const toastContainer = document.querySelector('.toast-container');
+            const toastContainer = document.querySelector(CONFIG.selectors.toastContainer);
             if (toastContainer) {
-                const okButton = toastContainer.querySelector('button.toast-button');
+                const okButton = toastContainer.querySelector(CONFIG.selectors.toastButton);
                 if (okButton) {
                     okButton.click();
                     console.log('Toast notification dismissed.');
                 }
             }
-        }, 500); // Wait 500ms for the toast to appear
+        }, CONFIG.timeouts.toast); // Wait for the toast to appear
+    }
+
+    /**
+     * Dispatches 'input' and 'change' events on a given element.
+     * @param {HTMLElement} element - The element to dispatch events on.
+     */
+    function dispatchEvents(element) {
+        element.dispatchEvent(new Event('input', { bubbles: true }));
+        element.dispatchEvent(new Event('change', { bubbles: true }));
     }
 
     /**
@@ -73,8 +111,8 @@
      * @param {string} message - The message to paste. Can contain "$contact" placeholder.
      */
     function pasteMessage(message) {
-        const textArea = document.getElementById('text-area');
-        const subjectInput = document.querySelector('.subjectInput');
+        const textArea = document.querySelector(CONFIG.selectors.textArea);
+        const subjectInput = document.querySelector(CONFIG.selectors.subjectInput);
 
         if (textArea) {
             let finalMessage = message;
@@ -96,14 +134,12 @@
                     body = '';
                 }
                 subjectInput.value = subject;
-                subjectInput.dispatchEvent(new Event('input', { bubbles: true }));
-                subjectInput.dispatchEvent(new Event('change', { bubbles: true }));
+                dispatchEvents(subjectInput);
             }
 
             textArea.value = body;
             textArea.focus();
-            textArea.dispatchEvent(new Event('input', { bubbles: true }));
-            textArea.dispatchEvent(new Event('change', { bubbles: true }));
+            dispatchEvents(textArea);
         }
     }
 
@@ -113,7 +149,7 @@
      * @returns {string|null} The first name of the contact, or null if not found.
      */
     function getContactFirstName() {
-        const titleElement = document.querySelector('app-seeker-request ion-toolbar ion-title');
+        const titleElement = document.querySelector(CONFIG.selectors.contactTitle);
         if (titleElement) {
             const fullText = titleElement.textContent.trim();
             const nameMatch = fullText.match(/^(\w+)/);
@@ -129,10 +165,10 @@
      * @returns {void}
      */
     function archiveOldestConversation() {
-        const conversationListItems = document.querySelectorAll('ion-list ion-item-sliding');
+        const conversationListItems = document.querySelectorAll(CONFIG.selectors.conversationList);
         if (conversationListItems.length > 0) {
             const oldestConversation = conversationListItems[conversationListItems.length - 1];
-            const archiveButton = oldestConversation.querySelector('ion-item-option:has(ion-icon[name="archive"])');
+            const archiveButton = oldestConversation.querySelector(CONFIG.selectors.archiveButton);
             if (archiveButton) {
                 // Simulate a click on the archive button
                 archiveButton.click();
@@ -150,9 +186,9 @@
      * @returns {Promise<void>}
      */
     async function clickBottomContact() {
-        const scrollableContent = document.querySelector('ion-content[role="main"]'); // Assuming this is the main scrollable area
+        const scrollableContent = document.querySelector(CONFIG.selectors.scrollableContent); // Assuming this is the main scrollable area
         if (!scrollableContent) {
-            console.warn('Scrollable content area (ion-content[role="main"]) not found.');
+            console.warn('Scrollable content area not found.');
             return;
         }
 
@@ -164,17 +200,17 @@
             previousScrollHeight = currentScrollHeight;
             scrollableContent.scrollTop = currentScrollHeight;
             console.log('Scrolling to bottom to load more contacts...');
-            await new window.Promise(resolve => window.setTimeout(resolve, 500)); // Wait for content to load
+            await new window.Promise(resolve => window.setTimeout(resolve, CONFIG.timeouts.scroll)); // Wait for content to load
             currentScrollHeight = scrollableContent.scrollHeight;
         }
         console.log('Finished scrolling. All contacts should be loaded.');
 
         // Now, find and click the bottom-most contact
-        const contactListItems = document.querySelectorAll('ion-list ion-item-sliding');
+        const contactListItems = document.querySelectorAll(CONFIG.selectors.conversationList);
         if (contactListItems.length > 0) {
             const bottomContactSlidingItem = contactListItems[contactListItems.length - 1];
             // Try clicking the h2 element within the ion-label, as it contains the contact name
-            const contactNameHeading = bottomContactSlidingItem.querySelector('ion-item ion-label h2');
+            const contactNameHeading = bottomContactSlidingItem.querySelector(CONFIG.selectors.contactNameHeading);
             if (contactNameHeading) {
                 contactNameHeading.click();
                 console.log('Clicked the h2 element (contact name) of the bottom-most contact.');
@@ -193,32 +229,32 @@
     async function addContactAndOpen() {
         console.log('Adding new contact and opening it.');
 
-        const contactList = document.querySelector('app-tab-seekers ion-list');
+        const contactList = document.querySelector(CONFIG.selectors.contactListContainer);
         if (!contactList) {
-            console.warn('Contact list (app-tab-seekers ion-list) not found.');
+            console.warn('Contact list not found.');
             return;
         }
 
-        const initialContactCount = contactList.querySelectorAll('ion-item-sliding').length;
+        const initialContactCount = contactList.querySelectorAll(CONFIG.selectors.conversationList).length;
 
-        const addButton = document.querySelector('ion-fab-button');
+        const addButton = document.querySelector(CONFIG.selectors.addContactButton);
         if (addButton) {
             addButton.click();
             dismissToast();
         } else {
-            console.warn('Add button (ion-fab-button) not found.');
+            console.warn('Add button not found.');
             return;
         }
 
         const observer = new window.MutationObserver((mutationsList, observer) => {
             for(let mutation of mutationsList) {
                 if (mutation.type === 'childList') {
-                    const newContactCount = contactList.querySelectorAll('ion-item-sliding').length;
+                    const newContactCount = contactList.querySelectorAll(CONFIG.selectors.conversationList).length;
                     if (newContactCount > initialContactCount) {
                         console.log('New contact added. Clicking it.');
-                        const firstContactSlidingItem = contactList.querySelector('ion-item-sliding');
+                        const firstContactSlidingItem = contactList.querySelector(CONFIG.selectors.conversationList);
                         if (firstContactSlidingItem) {
-                            const contactNameHeading = firstContactSlidingItem.querySelector('ion-item ion-label h2');
+                            const contactNameHeading = firstContactSlidingItem.querySelector(CONFIG.selectors.contactNameHeading);
                             if (contactNameHeading) {
                                 contactNameHeading.click();
                                 console.log('Clicked the h2 element (contact name) of the new contact.');
@@ -239,7 +275,7 @@
         window.setTimeout(() => {
             observer.disconnect();
             console.warn('Observer timed out. New contact was not detected.');
-        }, 10000); // 10 seconds timeout
+        }, CONFIG.timeouts.observer); // 10 seconds timeout
     }
 
     /**
@@ -247,15 +283,15 @@
      * @returns {Promise<void>}
      */
     async function sendAndGoBack() {
-        const sendButton = document.querySelector('ion-button:has(ion-icon[name="send"])');
+        const sendButton = document.querySelector(CONFIG.selectors.sendButton);
         if (sendButton) {
             sendButton.click();
-            console.log('Send button clicked. Waiting 2 seconds before going back...');
-            await new window.Promise(resolve => window.setTimeout(resolve, 2000)); // Wait for 2 seconds
+            console.log('Send button clicked. Waiting before going back...');
+            await new window.Promise(resolve => window.setTimeout(resolve, CONFIG.timeouts.send)); // Wait for 2 seconds
             window.history.back();
             console.log('Navigated back in browser history.');
         } else {
-            console.warn('Send button (ion-button with ion-icon name="send") not found.');
+            console.warn('Send button not found.');
         }
     }
 
