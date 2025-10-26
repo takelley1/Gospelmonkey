@@ -37,6 +37,11 @@
             followUp: "Hi $contact, did you get my last message? I look forward to speaking with you!\n\nYou can read the Bible for free here: https://www.biblegateway.com/passage/?search=John%201&version=NIV\nYou can also install the Bible app for free at https://bible.com/app",
             gospel: "Hi $contact, I'm Austin. God created us people in His image and blessed us and gave us dominion over everything in the earth. Why? I believe He did so because He is love and He wants to share His love with us. But then Adam, the first man, sinned and disobeyed God and broke the wonderful relationship he and all people to come had with God, for we all sinned. \"But your iniquities have separated you from your God; and your sins have hidden His face from you, so that He will not hear\" (Isaiah 59:2).God sent His One and only Son Jesus Christ to earth to die for our sins. After 3 days, Jesus rose from the dead. I want to help you know God. $contact, God loves you. \"For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life\" (John 3:16). When I first experienced God, I first asked Jesus Christ to forgive me my sins and come into my life. I encourage you to read the Gospel of John in the Bible. John was Jesus' closest disciple when Jesus Christ the Son of God was ministering on earth. You can download a Bible onto your phone at bible.com/app. Who is Jesus Christ to you, $contact? Please let me hear from you. I look forward to reading your words.",
             muslim: "Hello $contact, My name is Austin. Thank you for contacting us. Your relationship with God is the most important thing in your life. Please remember that you are a human trying to understand God. Only God can reveal Himself to you. You can ask God to show you who He really is and how to have a relationship with Him. God loves you and wants you to know Him. Talk to Him directly and ask for His help. Jesus Christ (Isa) paid for our sins. 'He was delivered over to death for our sins and was raised to life for our justification' (Romans 4:25).\n\nhttps://whoisjesus-really.com explains the life of Jesus, the miracles He performed, what others said about Him, how He has influenced the world and what all this means to you, https://jesusfactorfiction.com is a series of excellent multi-media presentations exploring the life and claims of Jesus. These are just two of Christ's claims. 'Truly, truly I say to you, the one hearing my word and believing the One having sent me has eternal life and comes not into judgment but has passed over out of death into life....I am the way and the truth and the life; no one comes to the Father except through me' (John 5:24 and 14:6). The Bible is the best book I recommend to discover Jesus' story. I encourage you to begin reading the Gospel of John in the New Testament. If you don’t have a Bible, you can get one free for your phone at https://bible.com/app What questions are you struggling with these days, $contact? Austin",
+        },
+        subjects: {
+            followUp: "Follow up",
+            gospel: "Good news",
+            muslim: "Good news",
         }
     };
 
@@ -48,15 +53,15 @@
         },
         'Control+Shift+F': () => {
             console.log('Ctrl+Shift+F pressed - Pasting follow-up message!');
-            pasteMessage(CONFIG.messages.followUp);
+            pasteMessage(CONFIG.messages.followUp, CONFIG.subjects.followUp);
         },
         'Control+Shift+G': () => {
             console.log('Ctrl+Shift+G pressed - Pasting gospel message!');
-            pasteMessage(CONFIG.messages.gospel);
+            pasteMessage(CONFIG.messages.gospel, CONFIG.subjects.gospel);
         },
         'Control+Shift+M': () => {
             console.log('Ctrl+Shift+M pressed - Pasting message for Muslims!');
-            pasteMessage(CONFIG.messages.muslim);
+            pasteMessage(CONFIG.messages.muslim, CONFIG.subjects.muslim);
         },
         'Control+Shift+N': () => {
             addContactAndOpen();
@@ -109,8 +114,9 @@
      * Replaces "$contact" with the first name of the person in the conversation.
      * If a subject field is present, the first line of the message is used as the subject.
      * @param {string} message - The message to paste. Can contain "$contact" placeholder.
+     * @param {string} [subject] - The subject to use. If not provided, the first line of the message will be used.
      */
-    function pasteMessage(message) {
+    function pasteMessage(message, subject = '') {
         const textArea = document.querySelector(CONFIG.selectors.textArea);
         const subjectInput = document.querySelector(CONFIG.selectors.subjectInput);
 
@@ -121,19 +127,21 @@
                 finalMessage = finalMessage.replace(/\$contact/g, firstName);
             }
 
-            let subject = '';
             let body = finalMessage;
 
             if (subjectInput) {
-                const firstLineEnd = finalMessage.indexOf('\n');
-                if (firstLineEnd !== -1) {
-                    subject = finalMessage.substring(0, firstLineEnd);
-                    body = finalMessage.substring(firstLineEnd + 1);
-                } else {
-                    subject = finalMessage;
-                    body = '';
+                let finalSubject = subject;
+                if (!finalSubject) {
+                    const firstLineEnd = finalMessage.indexOf('\n');
+                    if (firstLineEnd !== -1) {
+                        finalSubject = finalMessage.substring(0, firstLineEnd);
+                        body = finalMessage.substring(firstLineEnd + 1);
+                    } else {
+                        finalSubject = finalMessage;
+                        body = '';
+                    }
                 }
-                subjectInput.value = subject;
+                subjectInput.value = finalSubject;
                 dispatchEvents(subjectInput);
             }
 
