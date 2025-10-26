@@ -15,7 +15,7 @@
     const CONFIG = {
         selectors: {
             toastContainer: '.toast-container',
-            toastButton: 'button.toast-button',
+            toastButton: 'button.toast-button-cancel',
             textArea: '#text-area',
             subjectInput: '.subjectInput',
             contactTitle: 'app-seeker-request ion-toolbar ion-title',
